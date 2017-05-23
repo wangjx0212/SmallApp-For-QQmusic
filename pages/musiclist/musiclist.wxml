@@ -1,0 +1,33 @@
+<view class="musiclist-wrapper">
+    <view class="frontInfo">
+        <view class="front-text">
+            <scroll-view class="front-tit" scroll-x="true">{{dissname}}</scroll-view>
+            <view class="front-dec">{{visitnum}}人播放 来自：{{nickname}}</view>  
+        </view>
+        <view class="frontImg" style="background-image: url({{frontImg}})"></view>
+    </view>
+    <!--歌曲列表-->
+    <view class="musiclist-song border_t" style="background-color: {{listBgColor}}">
+        <view class="border_b musicList-item" wx:for="{{songlist}}" wx:key="unique" data-id="{{item.id}}" data-mid="{{item.mid}}" data-albummid="{{item.album.mid}}" bindtap="toPlayPage" >
+            <view class="song-tit">{{item.title}}</view>
+            <view class="song-dec">
+                <text>{{item.singer[0].name}}.{{item.album.name}}</text>
+            </view>
+        </view>
+        
+    </view>
+</view>
+<view class='musicPlay' catchtap='toAutoPlayPage'>
+        <view class="song-info">
+            <image class="song-info_img {{isPlaying ? 'rotate-img' : ''}} " src="{{songImg}}"></image>
+            <view class="song-info_con">
+                <scroll-view class="song-name" scroll-x="true" style="width:100%" >
+                    <view class="">{{playsong.title}}</view>
+                </scroll-view>
+                <view class="singer-name">
+                    <view class="singer-name_text">{{playsong.singer[0].name}}</view>
+                </view>
+            </view>
+            <view class="play {{isPlaying ? '' : 'pause'}}" catchtap="songToggle"></view>
+        </view>
+</view>

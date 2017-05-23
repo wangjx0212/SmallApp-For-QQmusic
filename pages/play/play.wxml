@@ -1,0 +1,43 @@
+<view class="play-wrapper" >
+    <view class="play-main">
+        <view class="song-info">
+            <image class="song-info_img {{isPlaying ? 'rotate-img' : ''}} " src="{{songImg}}"></image>
+            <view class="song-info_con">
+                <scroll-view class="song-name" scroll-x="true" style="width:100%" >
+                    <view class="">{{playsong.title}}</view>
+                </scroll-view>
+                <view class="singer-name">
+                    <view class="singer-name_text">{{playsong.singer[0].name}}</view>
+                </view>
+            </view>
+            <view class="play {{isPlaying ? '' : 'pause'}}" bindtap="songToggle"></view>
+        </view>
+        <view class="song-lyrics">
+            <swiper class="song-lyric__swiper" style="height:{{lyricSwiperH}}px">
+                <swiper-item class="song-lyric__item">
+                    <scroll-view scroll-y="true" scroll-top="{{scrollTop}}" style="height:100%" >
+                      <view class="" style="padding-top: 220px;">
+                        <view id="time{{index}}" class="lyrics-item {{currentPosition == index ?'lyrics-item_active':''}}" wx:for="{{lyric}}" data-timeline="{{index}}" wx:for-item="word" wx:key="unique"              wx:if="{{word.length>1}}">
+                            <text wx:if="{{word.length>1}}">
+                                {{word}}
+                            </text>
+                        </view>
+                      </view>
+ 
+                    </scroll-view>
+                </swiper-item>
+            </swiper>
+        </view>
+
+        <view class="song-control">
+            <view class="progress">
+                <text class="time-start">{{songState.currentPosition}}</text>
+                <view class="time-bar">
+                    <view class="time-play" style="transform:translateX({{songState.progress}}%)"></view>
+                </view>
+                <text class="time-end">{{songState.duration}}</text>
+            </view>
+        </view>
+    </view> 
+    <view class="play-wrapper_img" style="background-image: url({{songImg}})"></view>
+</view>

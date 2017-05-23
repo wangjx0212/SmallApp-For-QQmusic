@@ -1,0 +1,14 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/musiclist/musiclist",
+    "pages/play/play",
+    "pages/toplist/toplist"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#31c27c",
+    "navigationBarTitleText": "心音乐",
+    "navigationBarTextStyle":"black"
+  }
+}

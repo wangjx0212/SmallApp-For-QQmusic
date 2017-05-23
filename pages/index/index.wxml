@@ -1,0 +1,83 @@
+<!--index.wxml-->
+<view class="navbar">
+  <text class="item {{currentTab==index ? 'active' : ''}}" wx:for="{{navbar}}" wx:key="{{index}}" data-index="{{index}}" bindtap="onNavbarTap">{{item}}</text>
+</view>
+
+<!--首页 推荐-->
+<view class="recommend" hidden="{{currentTab!=0}}">
+   <view class="popular">
+    <text class="title">热门歌单</text>
+     <view class="list">
+       <view class="item songitem" wx:for="{{songlist}}" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap="toMusicList">
+         <view class="list-media">
+           <image class="img" src="{{item.picUrl}}"></image>
+           <text class="list-count">{{item.accessnum}}</text>
+         </view>
+         <text class="lisy-text">{{item.songListDesc}}</text>
+         <text class="list-author">{{item.songListAuthor}}</text>
+       </view>
+     </view>
+   </view>
+</view>
+<!--排行榜-->
+<view class="topList" hidden="{{currentTab!=1}}">
+    <view class="topList-item" wx:for="{{toplist}}" wx:key="{{item.id}}" data-id="{{item.id}}" bindtap="toToplistTap" >
+      <view class="list-media">
+        <image class="img" src="{{item.picUrl}}"></image>
+      </view>
+      <view class="list-info">
+        <text class="info-title">{{item.topTitle}}</text>
+        <view class="info-text" wx:for="{{item.songList}}" wx:key="unique" >{{index+1}}
+        <text>{{item.songname}}</text>
+        {{item.singername}}
+        </view>
+      </view>
+    </view>
+</view>
+<view class="search" hidden="{{currentTab!=2}}">
+    <!--搜索框-->
+    <view class="search-bar">
+      <view class="search-box">
+        <icon type="search" class="icon-search" size="18" bindtap='onSearch' />
+        <input type="text" class="search-input" placeholder="搜索歌曲、歌单、专辑" focus="{{inputFocus}}" value="{{searchinfo}}" bindinput="onSearchInput" bindfocus="onSearcFocus" />
+        <icon type="clear" class="icon-clear"  size="16" wx:if="{{searchinfo}}" bindtap="searchclear" />
+      </view>
+      <view class="cancel-btn" wx:if="{{searchCancelShow}}" bindtap="searccancel">取消</view>
+    </view>
+    <view class="search-hot"wx:if="{{searchHotShow}}" >
+      <text class="hot-title">热门搜索</text>
+      <view class="hot-box">
+        <!--<text class="hot-item hot" bindtap="onHotSearch" >{{specialkey}}</text>-->
+         <text class="hot-item" wx:for="{{hotkey}}" wx:key="{{item.k}}" data-text="{{item.k}}" data-id="{{item.n}}" bindtap="onHotSearch" >{{item.k}}           </text>
+      </view>
+    </view>
+    <view class="search-song" wx:if="{{searchResultShow}}">
+      <view class="search-song_list">
+        <view class="search-song_item" wx:for="{{songlist}}" wx:key="{{item.songid}}" data-id="{{item.songid}}" 
+        data-mid="{{item.songmid}}" data-albummid="{{item.albummid}}" bindtap="toPlayPage"  >
+          <view class="icon {{item.isonly=='0' ? 'nocopyright' : ''}} "></view>
+          <view class="info">
+            <text class="title">{{item.songname}}</text>
+            <view class="singer">
+              <text class="name" wx:for="{{item.singer}}" wx:key="{{index}}">{{item.name}}</text>
+            </view>
+          </view>
+          
+        </view>
+      </view>
+    </view>
+</view>
+<view class='musicPlay' catchtap='toAutoPlayPage'>
+        <view class="song-info">
+            <image class="song-info_img {{isPlaying ? 'rotate-img' : ''}} " src="{{songImg}}"></image>
+            <view class="song-info_con">
+                <scroll-view class="song-name" scroll-x="true" style="width:100%" >
+                    <view class="">{{playsong.title}}</view>
+                </scroll-view>
+                <view class="singer-name">
+                    <view class="singer-name_text">{{playsong.singer[0].name}}</view>
+                </view>
+            </view>
+            <view class="play {{isPlaying ? '' : 'pause'}}" catchtap="songToggle"></view>
+        </view>
+</view>

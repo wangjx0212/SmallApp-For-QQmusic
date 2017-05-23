@@ -1,0 +1,34 @@
+<view class="toplist-wrapper">
+    <view class="frontInfo">
+        <view class="front-text">
+            <scroll-view class="front-tit" scroll-x="true">{{topinfo.ListName}}</scroll-view>
+            <view class="front-dec">{{update_time}}更新</view>  
+        </view>
+        <view class="frontImg" style="background-image: url({{topinfo.pic_album}})"></view>
+    </view>
+    <!--歌曲列表-->
+    <view class="toplist-song border_t" style="background-color: {{listBgColor}}" >
+        <view class="border_b toplist-item" wx:for="{{songlist}}" wx:key="unique" data-id="{{item.data.songid}}" 
+        data-mid="{{item.data.songmid}}" data-albummid="{{item.data.albummid}}" bindtap="toPlayPage" >
+            <view class="song-tit">{{item.data.songname}}</view>
+            <view class="song-dec">
+                <text>{{item.data.singer[0].name}}.{{item.data.albumname}}</text>
+            </view>
+        </view>
+   
+    </view>
+</view>
+<view class='musicPlay' catchtap='toAutoPlayPage'>
+        <view class="song-info">
+            <image class="song-info_img {{isPlaying ? 'rotate-img' : ''}} " src="{{songImg}}"></image>
+            <view class="song-info_con">
+                <scroll-view class="song-name" scroll-x="true" style="width:100%" >
+                    <view class="">{{playsong.title}}</view>
+                </scroll-view>
+                <view class="singer-name">
+                    <view class="singer-name_text">{{playsong.singer[0].name}}</view>
+                </view>
+            </view>
+            <view class="play {{isPlaying ? '' : 'pause'}}" catchtap="songToggle"></view>
+        </view>
+</view>
